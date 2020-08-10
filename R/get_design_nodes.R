@@ -21,12 +21,18 @@ get_design_nodes <- function(design) {
     pluck("function_types") %>%
     flatten_chr %>%
     seq_along %>%
-    map_df( ~ tibble(
-      step_type = design_summary$function_types[.] %>% flatten_chr,
-      name = design_summary$variables_added[.] %>% map(names) %>% flatten_chr
-    )) %>%
-    mutate(data_strategy = case_when(
-      step_type %in% c("population", "potential_outcomes", "reveal", "custom") ~ "unmanipulated",
-      TRUE ~ step_type
-    ))
+    map_df(
+      ~ tibble(
+        step_type = design_summary$function_types[.] %>% flatten_chr,
+        causal_order = .,
+        name = design_summary$variables_added[.] %>% map(names) %>% flatten_chr
+      )
+    ) %>%
+    mutate(
+      data_strategy = case_when(
+        step_type %in% c("population", "potential_outcomes", "reveal", "custom") ~ "unmanipulated",
+        TRUE ~ step_type
+      ),
+      name = if_else(name == "S_inclusion_prob", "S", name)
+    )
 }

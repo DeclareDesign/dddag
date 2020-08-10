@@ -12,22 +12,19 @@
 #' @examples
 #'
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr left_join mutate case_when `%>%`
+#' @importFrom dplyr left_join mutate if_else `%>%` transmute select
 make_design_dag_df <- function(design, dag) {
 
-  dag_df <- tidy_dagitty(dag) %>% as_tibble
+  dag_df <- tidy_dagitty(dag) %>%
+    as_tibble
 
-  design_df <- get_design_nodes(design)
+  design_nodes_df <-
+    design %>%
+    get_design_nodes
 
-  gg_df <-
+    gg_df <-
     dag_df %>%
-    left_join(design_df) %>%
-    mutate(
-      data_strategy = case_when(
-        name == "S" ~ "sampling",
-        TRUE ~ data_strategy
-      )
-    )
+    left_join(design_nodes_df, by = "name")
 
   return(gg_df)
 }
