@@ -26,10 +26,10 @@ plot_design <- function(design, dag) {
     geom_dag_edges() +
     # theme_dag() +
     scale_shape_manual(values = c(
-      "sampling" = 6,
-      "assignment" = 5,
-      "measurement" = 1,
-      "unmanipulated" = NA
+      "sampling" = 25,
+      "assignment" = 23,
+      "measurement" = 22,
+      "unmanipulated" = 21
     ))
 }
 
