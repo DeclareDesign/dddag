@@ -36,3 +36,4 @@ get_design_nodes <- function(design) {
       name = if_else(name == "S_inclusion_prob", "S", name)
     )
 }
+

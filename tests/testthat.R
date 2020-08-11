@@ -1,4 +1,4 @@
 library(testthat)
-library(ggdd)
+library(dddag)
 
-test_check("ggdd")
+test_check("dddag")

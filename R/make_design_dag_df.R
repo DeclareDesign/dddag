@@ -12,7 +12,8 @@
 #' @examples
 #'
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr left_join mutate if_else `%>%` transmute select
+#' @importFrom dplyr left_join mutate if_else `%>%` transmute select filter
+#' @importFrom ggdag tidy_dagitty
 make_design_dag_df <- function(design, dag) {
 
   dag_df <- tidy_dagitty(dag) %>%
