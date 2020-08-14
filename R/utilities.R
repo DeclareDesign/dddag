@@ -25,7 +25,7 @@ get_vars_from_step <- function(step) {
       if(lhs != "N" && length(rhs) > 0)
         return(list(formula_from_vars(lhs, rhs))[lhs != "N"])
       # return(list(formulae[[1]]))
-    } else if (length(formulae) == 0) {
+    } else if (length(formulae) == 0 && type != "reveal") {
       exprs <- call_args(call)
       lhs <- as.list(names(exprs))
       # vars <- map2(lhs, exprs, function(x, y) list(x, all.vars(y)))
@@ -33,6 +33,10 @@ get_vars_from_step <- function(step) {
       formulae <- map2(lhs[has_parents && lhs != "N"], exprs[has_parents && lhs != "N"],
                        function(x, y) formula_from_vars(x, all.vars(y) %>% setdiff("N")))
       return(formulae)
+    } else if (type == "reveal") {
+      # kludge
+      exprs <- call_args(call)
+      formulae <- list(formula_from_vars(as.character(exprs[[1]]), as.character(exprs[[2]])))
     }
   }
   return(NULL)

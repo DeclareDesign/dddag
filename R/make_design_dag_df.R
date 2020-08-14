@@ -3,8 +3,8 @@
 
 #' Title
 #'
-#' @param design
-#' @param dag
+#' @param design A DeclareDesign design
+#' @param dag a
 #'
 #' @return
 #' @export
@@ -20,13 +20,17 @@ make_design_dag_df <- function(design, dag) {
     select(name, direction, to, circular) %>%
     as_tibble
 
+  # browser()
   design_nodes_df <-
     design %>%
     get_design_nodes %>%
     filter(name %in% dag_df$name) %>%
-    mutate(y = -1*order(causal_order),
-           x = 1
-           )
+    mutate(
+      x = order(causal_order)^0.5,
+      y = -1 * order(causal_order)^(1.5),
+      x = (x - mean(x))/sd(x),
+      y = (y - mean(y))/sd(y)
+    )
 
   endnodes_df <-
     design_nodes_df %>%

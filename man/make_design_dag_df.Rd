@@ -7,7 +7,9 @@
 make_design_dag_df(design, dag)
 }
 \arguments{
-\item{dag}{}
+\item{design}{A DeclareDesign design}
+
+\item{dag}{a}
 }
 \value{
 
