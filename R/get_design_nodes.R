@@ -7,8 +7,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' my_design <- DesignLibrary::two_arm_designer()
 #' get_design_nodes(my_design)
+#' }
 #'
 #' @importFrom purrr pluck flatten_chr map_df map
 #' @importFrom dplyr mutate case_when

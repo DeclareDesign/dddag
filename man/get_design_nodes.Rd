@@ -16,5 +16,9 @@ get_design_nodes(design)
 Title
 }
 \examples{
+\dontrun{
+my_design <- DesignLibrary::two_arm_designer()
+get_design_nodes(my_design)
+}
 
 }
